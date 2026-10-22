@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<title>Sabiru PHONE</title>
+<style>
+:root{--bg:#f5f5f7;--ink:#171719;--muted:#86868b;--blue:#007aff;--line:#e5e5ea;--card:#fff;--green:#d8f8b7;--glass:rgba(255,255,255,.58)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% 0%,#e4e7f2 0,transparent 48%),#d9dce5;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;min-height:100dvh;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.phone{width:min(100%,430px);height:min(932px,100dvh);min-height:620px;margin:0 auto;background:var(--bg);position:relative;overflow:hidden;box-shadow:0 24px 80px #10182b30}
+.status{height:34px;padding:9px 24px 0;display:flex;justify-content:space-between;font-size:12px;font-weight:650;letter-spacing:.1px;z-index:6}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:118px;height:34px;border-radius:24px;background:#000;z-index:7;box-shadow:inset 0 0 0 1px #151515}
+.screen{position:absolute;inset:32px 0 0;display:none;flex-direction:column;min-height:0}.screen.active{display:flex}
+.lock{inset:0;background:radial-gradient(ellipse at 18% 23%,#d9d4f7 0,transparent 35%),radial-gradient(ellipse at 80% 40%,#f3d5e5 0,transparent 34%),linear-gradient(155deg,#8bb7db 0%,#b7c9e8 35%,#d8c9e2 66%,#9eb8d2 100%);align-items:center;text-align:center;padding:76px 17px 28px;color:#fff}
+.lock:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#17294312 0%,#24345200 42%,#14243a38 100%);pointer-events:none}
+.lock>*{position:relative}.lock .date{font-size:17px;font-weight:550;letter-spacing:.1px;text-shadow:0 1px 12px #24344b44}.clock{font-size:clamp(82px,22vw,104px);font-weight:300;letter-spacing:-5.5px;line-height:1.02;margin-top:4px;font-variant-numeric:tabular-nums;text-shadow:0 2px 14px #24344b28}
+.notices{width:100%;display:grid;gap:9px;margin-top:34px;text-align:left}.notice{background:rgba(247,248,252,.64);color:#202126;backdrop-filter:blur(28px) saturate(1.7);-webkit-backdrop-filter:blur(28px) saturate(1.7);border:1px solid #ffffff70;border-radius:21px;padding:13px 15px;text-align:left;width:100%;box-shadow:0 8px 24px #24344b13}.notice small{color:#656a78;display:block;margin-bottom:4px;font-size:10px;letter-spacing:.3px}.unlock{margin-top:auto;border:1px solid #ffffff70;color:white;background:#ffffff20;border-radius:24px;padding:12px 24px;font-weight:600;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:inset 0 1px 0 #ffffff45}
+.home{background:radial-gradient(ellipse at 15% 10%,#f4d9e8 0,transparent 34%),radial-gradient(ellipse at 90% 32%,#c9dcf9 0,transparent 38%),linear-gradient(155deg,#dce9f7,#d9d5ee 58%,#d8e6e2);padding:17px 18px 20px}
+.home-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:650;color:#34343a;margin-bottom:22px}.widget{border-radius:26px;background:rgba(255,255,255,.48);border:1px solid #ffffff80;padding:16px;margin-bottom:25px;backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);box-shadow:inset 0 1px 0 #ffffff70}.widget strong{font-size:19px}.widget p{margin:5px 0 0;color:#555b6b;font-size:13px}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:23px 10px}.app{background:transparent;color:#242429;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;min-width:0;text-shadow:0 1px 2px #ffffff35}.app-icon{width:57px;height:57px;border-radius:14px;background:linear-gradient(145deg,#fff,#f1f1f4);display:grid;place-items:center;font-size:26px;box-shadow:0 2px 5px #1d29401b,inset 0 1px 0 #ffffffd9;overflow:hidden}.app-label{max-width:75px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;font-weight:500}.dock{margin-top:auto;display:flex;justify-content:space-around;align-items:center;background:rgba(248,248,252,.48);border:1px solid #ffffff70;border-radius:29px;padding:11px 7px 9px;backdrop-filter:blur(30px) saturate(1.7);-webkit-backdrop-filter:blur(30px) saturate(1.7);box-shadow:inset 0 1px 0 #ffffff75}
+.topbar{min-height:52px;display:flex;align-items:center;gap:10px;padding:7px 14px;background:#fff;border-bottom:1px solid var(--line);flex-shrink:0}.topbar h2{font-size:18px;margin:0;flex:1}.back,.toolbtn{background:transparent;color:var(--blue);padding:7px 4px;font-size:15px}.content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}.search{margin:10px 13px;background:#eeeef3;border-radius:11px;padding:9px 12px;display:flex;gap:8px}.search input{border:0;background:transparent;outline:0;width:100%;min-width:0}.contact{display:flex;gap:12px;align-items:center;padding:12px 15px;background:#fff;border-bottom:1px solid #f0f0f4;width:100%;text-align:left;color:inherit}.avatar{width:48px;height:48px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#b8c7df,#4d6183);color:#fff;font-weight:700;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.contact-main{flex:1;min-width:0}.contact-name{font-weight:700;font-size:15px}.preview{font-size:12px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.contact-meta{font-size:11px;color:var(--muted);text-align:right}.badge{display:inline-grid;place-items:center;background:#f34d58;color:#fff;border-radius:20px;min-width:19px;height:19px;padding:0 5px;margin-top:5px;font-size:10px}
+.chat-area{flex:1;min-height:0;overflow:auto;padding:16px 12px;display:flex;flex-direction:column;gap:10px;background:#e8f2fb}.day{text-align:center;color:#8b96a6;font-size:11px;margin:4px}.bubble-row{display:flex;align-items:flex-end;gap:6px}.bubble-row.out{justify-content:flex-end}.bubble{max-width:78%;border-radius:17px;padding:10px 12px;background:white;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;box-shadow:0 1px 2px #25344a0b}.out .bubble{background:#a9e887;border-bottom-right-radius:5px}.in .bubble{border-bottom-left-radius:5px}.bubble img{display:block;max-width:190px;max-height:230px;object-fit:cover;border-radius:10px}.msg-time{font-size:9px;color:#8c95a3;white-space:nowrap;margin-bottom:2px}.composer{display:flex;align-items:center;gap:8px;padding:9px 10px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}.composer input{flex:1;min-width:0;border:0;background:#f0f0f5;border-radius:22px;padding:12px 15px;outline:0}.round{width:38px;height:38px;border-radius:50%;background:#f0f0f5;color:var(--blue);font-size:20px;flex-shrink:0}.send{background:var(--blue);color:white}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px}.tile{aspect-ratio:1;overflow:hidden;background:#dfe4ec;padding:0}.tile img{width:100%;height:100%;object-fit:cover}.tile span{font-size:36px;display:grid;place-items:center;width:100%;height:100%}.gallery-toolbar{padding:10px 13px;background:#fff;display:flex;gap:8px;align-items:center}.gallery-toolbar select{border:1px solid var(--line);border-radius:9px;padding:7px;max-width:55%}
+.viewer{position:absolute;inset:0;background:#090a0d;z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;color:white}.viewer.show{display:flex}.viewer img{max-width:100%;max-height:78%;object-fit:contain;touch-action:pinch-zoom}.viewer .close{position:absolute;top:18px;right:18px;background:#ffffff25;color:white;border-radius:50%;width:40px;height:40px;font-size:23px}.viewer .caption{margin-top:14px;font-size:13px}
+.form{padding:14px;display:grid;gap:10px}.field{display:grid;gap:5px;font-size:12px;color:#6f7380}.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:10px;padding:10px;background:white;color:var(--ink);width:100%}.field textarea{min-height:85px;resize:vertical}.primary{background:var(--blue);color:#fff;border-radius:11px;padding:11px 15px;font-weight:650}.secondary{background:#f0f0f5;color:#303443;border-radius:11px;padding:10px 13px}.post{background:#fff;border-bottom:1px solid var(--line);padding:15px}.post-head{display:flex;gap:9px;align-items:center;margin-bottom:10px}.post-name{font-weight:700}.post-handle{color:var(--muted);font-size:12px}.post-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.45}.post img{max-width:100%;max-height:320px;object-fit:contain;border-radius:13px;margin-top:10px;background:#f4f4f7}.post-actions{display:flex;justify-content:space-between;color:#7c8290;font-size:12px;margin-top:12px}.note-card{background:#fff;border-radius:13px;margin:10px;padding:14px;border:1px solid var(--line);text-align:left;width:calc(100% - 20px);color:inherit}.event{padding:13px 15px;background:#fff;border-bottom:1px solid var(--line)}.event strong{display:block}.event small{color:var(--muted)}
+.music-player{margin:22px 18px;padding:22px;background:#fff;border-radius:22px;text-align:center}.album{height:210px;border-radius:16px;background:linear-gradient(135deg,#b9d3f5,#edc9df);display:grid;place-items:center;font-size:65px;margin-bottom:18px}.music-player input[type=range]{width:100%}.empty{padding:30px;text-align:center;color:var(--muted)}
+@media(min-width:600px){body{padding:18px 0}.phone{height:min(900px,calc(100dvh - 36px));border-radius:40px;border:7px solid #20283a}.lock{border-radius:32px}.screen{border-radius:32px;overflow:hidden}.island{top:9px}}
+
+/* iOS 26-inspired details: Liquid Glass, native-style app icon artwork, and compact system chrome */
+.app-messages{background:linear-gradient(155deg,#63e58a,#16b957)!important}
+.app-messages svg{width:100%;height:100%;padding:9px}
+.app-photos{background:linear-gradient(145deg,#fafafa,#e9e9ee)!important;position:relative}
+.app-photos span,.app-photos i,.app-photos b,.app-photos em{position:absolute;width:18px;height:28px;border-radius:12px;left:19px;top:5px;transform-origin:50% 23px}
+.app-photos span{background:linear-gradient(#ff5a55,#ffad45);transform:rotate(0deg)}
+.app-photos i{background:linear-gradient(#ffe24b,#54c66b);transform:rotate(60deg)}
+.app-photos b{background:linear-gradient(#5ce3a4,#48b8ff);transform:rotate(120deg)}
+.app-photos em{background:linear-gradient(#66a5ff,#b17aff);transform:rotate(180deg)}
+.app-photos:after{content:"";position:absolute;inset:20px;border-radius:50%;background:#fff}
+.app-music{color:white!important;background:linear-gradient(145deg,#fb7ba9,#a24bdf)!important;font-size:35px!important;font-weight:600}
+.app-calendar{background:#fff!important;display:flex!important;flex-direction:column;justify-content:center;gap:0!important;color:#e84646}
+.app-calendar b{font-size:9px;letter-spacing:.5px}.app-calendar strong{font-size:26px;line-height:29px;color:#242429;font-weight:500}
+.app-clock{background:linear-gradient(145deg,#fdfdfd,#e7e7eb)!important;color:#25252b;font-size:42px!important;font-weight:200}
+.app-notes{background:linear-gradient(#fff 0 27%,#f8d94c 27% 37%,#fff 37%)!important;display:flex!important;flex-direction:column;justify-content:center;gap:5px!important;padding:0 12px}
+.app-notes i{display:block;width:100%;height:2px;border-radius:2px;background:#d6d6d8}
+.app-settings{background:conic-gradient(from 20deg,#f6f6f8,#c7c9d0,#f7f7f8,#aeb2bc,#f7f7f8,#c7c9d0,#f6f6f8)!important;color:#666a73;font-size:34px!important}
+.app-x{background:#050505!important;color:#fff!important;font-size:32px!important;font-weight:500}
+.app-phone{background:linear-gradient(145deg,#6ee88a,#1dbb62)!important;color:#fff!important;font-size:30px!important}
+.topbar{background:rgba(250,250,252,.84);backdrop-filter:blur(24px) saturate(1.7);-webkit-backdrop-filter:blur(24px) saturate(1.7);border-bottom:1px solid #dcdce280}
+.search{background:rgba(118,118,128,.12);border-radius:12px}
+.contact{background:rgba(255,255,255,.92)}
+.composer{background:rgba(250,250,252,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+@media(max-width:599px){.phone{height:100dvh;min-height:580px}.status{padding-top:max(9px,env(safe-area-inset-top))}.lock{padding-top:max(76px,calc(env(safe-area-inset-top) + 62px))}}
+
+.system-icons{display:flex;align-items:center}.system-icons svg{width:48px;height:14px;display:block}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="status"><span id="statusTime">9:41</span><span class="system-icons" aria-label="Cellular, Wi-Fi, battery"><svg viewBox="0 0 58 16" aria-hidden="true"><path d="M2 13V10h4v3M8 13V7h4v6M14 13V4h4v9" fill="currentColor"/><path d="M25 5.5c3.1-3 7.9-3 11 0M27.5 8c1.7-1.6 4.3-1.6 6 0M30 10.5c.3-.3.7-.3 1 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><rect x="42" y="3" width="13" height="10" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="44" y="5" width="8" height="6" rx="1.2" fill="currentColor"/><path d="M56 6v4" stroke="currentColor" stroke-width="1.4"/></svg></span></div><div class="island"></div>
+  <section class="screen lock active" id="lock">
+    <div class="date" id="lockDate">Thursday, October 22</div><div class="clock" id="lockClock">9:41</div>
+    <div class="notices">
+      <button class="notice" onclick="openApp('messages')"><small>MESSAGES · NOW</small><b>Aiden</b><div>Are you awake? I need to tell you something.</div></button>
+      <button class="notice" onclick="openApp('xapp')"><small>X · 2 MIN AGO</small><b>@sabiru</b><div>some things are better left unsaid.</div></button>
+    </div>
+    <button class="unlock" onclick="unlock()">↑ Swipe up or tap to unlock</button>
+  </section>
+  <section class="screen home" id="home">
+    <div class="home-top"><span id="homeDate">Thu, Oct 22</span><span>● ● ● &nbsp; 24%</span></div>
+    <div class="widget"><strong id="homeClock">9:41</strong><p>Sabiru's iPhone · Fictional AU</p></div>
+    <div class="app-grid">
+      <button class="app" onclick="openApp('messages')"><span class="app-icon app-messages"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 9C18 9 8 18 8 30c0 7 4 13 10 17l-2 9 11-5c2 .5 4 .8 6 .8 14 0 24-9 24-21S46 9 32 9Z" fill="white"/><path d="M18 30c7-8 12-1 15 3 4-7 10-10 14-6-3 12-12 18-19 17-6-1-9-7-10-14Z" fill="#28c76f"/></svg></span><span class="app-label">Messages</span></button>
+      <button class="app" onclick="openApp('photos')"><span class="app-icon app-photos"><span></span><i></i><b></b><em></em></span><span class="app-label">Photos</span></button>
+      <button class="app" onclick="openApp('xapp')"><span class="app-icon app-x">𝕏</span><span class="app-label">X</span></button>
+      <button class="app" onclick="openApp('music')"><span class="app-icon app-music">♫</span><span class="app-label">Music</span></button>
+      <button class="app" onclick="openApp('calendar')"><span class="app-icon app-calendar"><b>THU</b><strong>22</strong></span><span class="app-label">Calendar</span></button>
+      <button class="app" onclick="openApp('alarm')"><span class="app-icon app-clock">◷</span><span class="app-label">Clock</span></button>
+      <button class="app" onclick="openApp('notes')"><span class="app-icon app-notes"><i></i><i></i><i></i><i></i></span><span class="app-label">Notes</span></button>
+      <button class="app" onclick="openApp('settings')"><span class="app-icon app-settings">⚙</span><span class="app-label">Settings</span></button>
+    </div>
+    <div class="dock"><button class="app" onclick="openApp('messages')"><span class="app-icon app-messages"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 9C18 9 8 18 8 30c0 7 4 13 10 17l-2 9 11-5c2 .5 4 .8 6 .8 14 0 24-9 24-21S46 9 32 9Z" fill="white"/><path d="M18 30c7-8 12-1 15 3 4-7 10-10 14-6-3 12-12 18-19 17-6-1-9-7-10-14Z" fill="#28c76f"/></svg></span></button><button class="app" onclick="openApp('photos')"><span class="app-icon app-photos"><span></span><i></i><b></b><em></em></span></button><button class="app" onclick="openApp('music')"><span class="app-icon app-music">♫</span></button><button class="app" onclick="openApp('phoneapp')"><span class="app-icon app-phone">☎</span></button></div>
+  </section>
+  <section class="screen" id="messages">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Chats</h2><button class="toolbtn" onclick="newContact()">＋</button></div>
+    <div class="content"><div class="search">⌕ <input id="chatSearch" placeholder="Search chats" oninput="renderContacts()"></div><div id="contacts"></div></div>
+  </section>
+  <section class="screen" id="chat">
+    <div class="topbar"><button class="back" onclick="openApp('messages')">‹ Chats</button><div class="avatar" id="chatAvatar" style="width:36px;height:36px">A</div><h2 id="chatTitle">Aiden</h2><button class="toolbtn" onclick="alert('Fictional AU only — no real calls are made.')">☎</button></div>
+    <div class="chat-area" id="chatArea"></div>
+    <div class="composer"><button class="round" onclick="document.getElementById('imageInput').click()">＋</button><input id="messageInput" placeholder="Message..." onkeydown="if(event.key==='Enter')sendMessage()"><button class="round send" onclick="sendMessage()">↑</button><input id="imageInput" type="file" accept="image/*" hidden onchange="sendPicture(event)"></div>
+  </section>
+  <section class="screen" id="photos">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Photos</h2><button class="toolbtn" onclick="document.getElementById('photoUpload').click()">＋</button><input type="file" id="photoUpload" accept="image/*" multiple hidden onchange="addPhotos(event)"></div>
+    <div class="gallery-toolbar"><span style="flex:1;font-weight:700">Library</span><select id="photoSort" onchange="renderPhotos()"><option value="new">Newest first</option><option value="old">Oldest first</option></select></div><div class="content"><div class="tiles" id="tiles"></div></div>
+  </section>
+  <section class="screen" id="xapp">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>𝕏</h2><button class="toolbtn" onclick="document.getElementById('postText').focus()">＋</button></div>
+    <div class="content"><form class="form" onsubmit="addPost(event)"><label class="field">Write a post<textarea id="postText" placeholder='What is happening?!'></textarea></label><label class="field">Attach image<input type="file" id="postImage" accept="image/*"></label><button class="primary">Post to fictional X</button></form><div id="posts"></div></div>
+  </section>
+  <section class="screen" id="music">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Music</h2><button class="toolbtn" onclick="document.getElementById('musicUpload').click()">＋</button><input type="file" id="musicUpload" accept="audio/*" hidden onchange="loadMusic(event)"></div>
+    <div class="content"><div class="music-player"><div class="album">♫</div><h3 id="trackName">Choose your own song</h3><p style="color:var(--muted)">Local playback · Fictional AU</p><audio id="audio" controls style="width:100%"></audio><p><button class="secondary" onclick="document.getElementById('musicUpload').click()">Add audio file</button></p></div><p class="empty">Select an audio file from your iPad to play it here. No APK needed for a website.</p></div>
+  </section>
+  <section class="screen" id="calendar">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Calendar</h2><button class="toolbtn" onclick="addEventPrompt()">＋</button></div>
+    <div class="content"><div class="form"><label class="field">Choose date<input id="eventDate" type="date"></label><label class="field">Event title<input id="eventTitle" placeholder="Coffee with Aiden"></label><button class="primary" onclick="saveEvent()">Add event</button></div><div id="events"></div></div>
+  </section>
+  <section class="screen" id="alarm">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Alarms</h2><button class="toolbtn" onclick="addAlarm()">＋</button></div>
+    <div class="content"><div class="form"><label class="field">Alarm time<input id="alarmTime" type="time" value="07:00"></label><label class="field">Label<input id="alarmLabel" placeholder="Wake up"></label><button class="primary" onclick="saveAlarm()">Save alarm</button></div><div id="alarms"></div><p class="empty">Browser alarms are reminders inside this AU prototype; they may not ring when the page is closed.</p></div>
+  </section>
+  <section class="screen" id="notes">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Notes</h2><button class="toolbtn" onclick="newNote()">＋</button></div>
+    <div class="content"><div id="noteList"></div><div class="form"><label class="field">Title<input id="noteTitle" placeholder="Untitled"></label><label class="field">Note<textarea id="noteBody" placeholder="Write something..."></textarea></label><button class="primary" onclick="saveNote()">Save note</button></div></div>
+  </section>
+  <section class="screen" id="settings">
+    <div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Customize</h2></div>
+    <div class="content"><div class="form"><label class="field">Character / phone name<input id="ownerName" value="Sabiru"></label><label class="field">Wallpaper color<select id="wallpaper"><option value="blue">Dreamy blue</option><option value="pink">Soft pink</option><option value="green">Sage green</option><option value="dark">Midnight</option></select></label><button class="primary" onclick="saveSettings()">Apply customization</button><p style="font-size:12px;color:var(--muted)">Your edits are saved in this browser on this device where supported.</p></div></div>
+  </section>
+  <section class="screen" id="phoneapp"><div class="topbar"><button class="back" onclick="goHome()">‹ Home</button><h2>Phone</h2></div><div class="content"><div class="empty">Fictional contacts only. No real calls can be placed.</div></div></section>
+  <div class="viewer" id="viewer"><button class="close" onclick="closeViewer()">×</button><img id="viewerImage" alt="Selected photo"><div class="caption" id="viewerCaption">Photo</div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const storageKey='sabiru-phone-v1';
+let data={owner:'Sabiru',wallpaper:'blue',current:null,contacts:[
+{id:'aiden',name:'Aiden',letter:'A',unread:2,messages:[{from:'in',text:'Are you awake?',time:'09:12'},{from:'in',text:'I need to tell you something.',time:'09:13'},{from:'out',text:'I am. What happened?',time:'09:15'},{from:'in',text:'Can we talk when you get home?',time:'09:16'}]},
+{id:'mika',name:'Mika',letter:'M',unread:1,messages:[{from:'in',text:'sent you the photos btw ✨',time:'Yesterday'},{from:'out',text:'WAIT I love these',time:'Yesterday'}]},
+{id:'raka',name:'Raka',letter:'R',unread:0,messages:[{from:'in',text:'Don’t forget dinner at 7.',time:'Yesterday'},{from:'out',text:'Noted 🫡',time:'Yesterday'}]},
+{id:'group',name:'the chaos club 🪩',letter:'C',unread:0,messages:[{from:'in',text:'Mika: who took my charger',time:'08:31'},{from:'in',text:'Raka: not me',time:'08:32'},{from:'out',text:'you are all liars',time:'08:33'}]}
+],photos:[
+{src:'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800',date:'2026-10-22',caption:'Ocean afternoon'},
+{src:'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800',date:'2026-10-20',caption:'Flowers'},
+{src:'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800',date:'2026-10-17',caption:'Night sky'},
+{src:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800',date:'2026-10-12',caption:'Somewhere'},
+{src:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800',date:'2026-10-03',caption:'A quiet place'},
+{src:'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800',date:'2026-09-28',caption:'Mountain air'},
+{src:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',date:'2026-09-19',caption:'Beach day'},
+{src:'https://images.unsplash.com/photo-1511497584788-876760111969?w=800',date:'2026-09-11',caption:'Green'}
+],posts:[{name:'Sabiru',handle:'@sabiru',text:'some things are better left unsaid.',date:'2m',image:''},{name:'Aiden',handle:'@aidenwrites',text:'if you know, you know.',date:'18m',image:''}],events:[],alarms:[{time:'07:00',label:'Wake up',enabled:true}],notes:[{title:'remember',body:'buy coffee for Aiden ☕'},{title:'ideas',body:'ask Mika about the photos'}]};
+try{const saved=localStorage.getItem(storageKey);if(saved)data={...data,...JSON.parse(saved)}}catch(e){}
+function persist(){try{localStorage.setItem(storageKey,JSON.stringify(data))}catch(e){console.warn('Local storage unavailable or full')}}
+function setScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active')}
+function unlock(){setScreen('home')}
+function goHome(){if($('chat').classList.contains('active')){data.current=null}setScreen('home')}
+function openApp(id){if(id==='chat'){setScreen(id);return}setScreen(id);if(id==='messages')renderContacts();if(id==='photos')renderPhotos();if(id==='xapp')renderPosts();if(id==='calendar')renderEvents();if(id==='alarm')renderAlarms();if(id==='notes')renderNotes()}
+function renderContacts(){const q=$('chatSearch').value.toLowerCase();$('contacts').innerHTML='';data.contacts.filter(c=>c.name.toLowerCase().includes(q)||lastMessage(c).toLowerCase().includes(q)).forEach(c=>{const b=document.createElement('button');b.className='contact';b.innerHTML=`<div class="avatar">${escapeHtml(c.letter||c.name[0])}</div><div class="contact-main"><div class="contact-name">${escapeHtml(c.name)}</div><div class="preview">${escapeHtml(lastMessage(c))}</div></div><div class="contact-meta">${escapeHtml(c.messages.at(-1)?.time||'')}</div>`;if(c.unread)b.querySelector('.contact-meta').innerHTML=`${escapeHtml(c.messages.at(-1)?.time||'')}<br><span class="badge">${c.unread}</span>`;b.onclick=()=>openChat(c.id);$('contacts').appendChild(b)})}
+function lastMessage(c){const m=c.messages[c.messages.length-1];return m?(m.image?'📷 Photo':m.text):'No messages yet'}
+function openChat(id){data.current=id;const c=data.contacts.find(x=>x.id===id);c.unread=0;$('chatTitle').textContent=c.name;$('chatAvatar').textContent=c.letter||c.name[0];setScreen('chat');renderChat();persist()}
+function renderChat(){const c=data.contacts.find(x=>x.id===data.current);if(!c)return;const area=$('chatArea');area.innerHTML='<div class="day">Today</div>';c.messages.forEach(m=>{const row=document.createElement('div');row.className='bubble-row '+(m.from==='out'?'out':'in');const bubble=document.createElement('div');bubble.className='bubble';if(m.image){const img=document.createElement('img');img.src=m.image;img.alt='Sent picture';img.onclick=()=>showViewer(m.image,m.time);bubble.appendChild(img)}if(m.text){const t=document.createElement('div');t.textContent=m.text;bubble.appendChild(t)}const tm=document.createElement('span');tm.className='msg-time';tm.textContent=m.time||'';row.append(bubble,tm);area.appendChild(row)});area.scrollTop=area.scrollHeight}
+function sendMessage(){const input=$('messageInput');const text=input.value.trim();if(!text||!data.current)return;const c=data.contacts.find(x=>x.id===data.current);c.messages.push({from:'out',text,time:nowTime()});input.value='';renderChat();persist()}
+function sendPicture(e){const file=e.target.files[0];if(!file||!data.current)return;const reader=new FileReader();reader.onload=()=>{const c=data.contacts.find(x=>x.id===data.current);c.messages.push({from:'out',image:reader.result,text:'',time:nowTime()});renderChat();persist();e.target.value=''};reader.readAsDataURL(file)}
+function newContact(){const name=prompt('Character name?');if(!name||!name.trim())return;data.contacts.unshift({id:'c'+Date.now(),name:name.trim(),letter:name.trim()[0].toUpperCase(),unread:0,messages:[{from:'in',text:'Hey! This is the start of our AU chat.',time:nowTime()}]});renderContacts();persist()}
+function renderPhotos(){const arr=[...data.photos].sort((a,b)=>$('photoSort').value==='new'?b.date.localeCompare(a.date):a.date.localeCompare(b.date));$('tiles').innerHTML='';arr.forEach(p=>{const btn=document.createElement('button');btn.className='tile';const img=document.createElement('img');img.src=p.src;img.alt=p.caption;img.loading='lazy';img.onerror=()=>{btn.innerHTML='<span>🌄</span>'};btn.appendChild(img);btn.onclick=()=>showViewer(p.src,p.caption+' · '+p.date);$('tiles').appendChild(btn)})}
+function addPhotos(e){[...e.target.files].forEach(file=>{const reader=new FileReader();reader.onload=()=>{data.photos.push({src:reader.result,date:new Date().toISOString().slice(0,10),caption:file.name});persist();renderPhotos()};reader.readAsDataURL(file)});e.target.value=''}
+function showViewer(src,caption){$('viewerImage').src=src;$('viewerCaption').textContent=caption;$('viewer').classList.add('show')}
+function closeViewer(){$('viewer').classList.remove('show');$('viewerImage').src=''}
+function renderPosts(){$('posts').innerHTML='';data.posts.forEach(p=>{const el=document.createElement('article');el.className='post';el.innerHTML=`<div class="post-head"><div class="avatar">${escapeHtml(p.name[0]||'S')}</div><div><div class="post-name">${escapeHtml(p.name)}</div><div class="post-handle">${escapeHtml(p.handle)} · ${escapeHtml(p.date)}</div></div></div><div class="post-body"></div>`;el.querySelector('.post-body').textContent=p.text;if(p.image){const im=document.createElement('img');im.src=p.image;el.appendChild(im)}const acts=document.createElement('div');acts.className='post-actions';acts.innerHTML='<span>♡ Reply</span><span>↻ Repost</span><span>♡ Like</span><span>↗ Share</span>';el.appendChild(acts);$('posts').appendChild(el)})}
+function addPost(e){e.preventDefault();const text=$('postText').value.trim();const file=$('postImage').files[0];if(!text&&!file){alert('Write text or attach a picture first.');return}const save=img=>{data.posts.unshift({name:data.owner,handle:'@'+data.owner.toLowerCase().replace(/\s+/g,''),text,date:'now',image:img||''});$('postText').value='';$('postImage').value='';persist();renderPosts()};if(file){const r=new FileReader();r.onload=()=>save(r.result);r.readAsDataURL(file)}else save('')}
+function loadMusic(e){const f=e.target.files[0];if(!f)return;const url=URL.createObjectURL(f);$('audio').src=url;$('trackName').textContent=f.name; e.target.value=''}
+function saveEvent(){const date=$('eventDate').value,title=$('eventTitle').value.trim();if(!date||!title){alert('Choose a date and enter an event title.');return}data.events.push({date,title});$('eventTitle').value='';persist();renderEvents()}
+function addEventPrompt(){$('eventDate').focus()}
+function renderEvents(){$('events').innerHTML='';[...data.events].sort((a,b)=>a.date.localeCompare(b.date)).forEach((e,i)=>{const el=document.createElement('div');el.className='event';el.innerHTML=`<strong>${escapeHtml(e.title)}</strong><small>${escapeHtml(e.date)}</small> <button class="toolbtn" onclick="deleteEvent(${i})">Delete</button>`;$('events').appendChild(el)})}
+function deleteEvent(i){data.events.splice(i,1);persist();renderEvents()}
+function addAlarm(){$('alarmTime').focus()}
+function saveAlarm(){const time=$('alarmTime').value,label=$('alarmLabel').value.trim()||'Alarm';if(!time){alert('Choose a time.');return}data.alarms.push({time,label,enabled:true});$('alarmLabel').value='';persist();renderAlarms()}
+function renderAlarms(){$('alarms').innerHTML='';data.alarms.forEach((a,i)=>{const el=document.createElement('div');el.className='event';el.innerHTML=`<strong style="font-size:25px">${escapeHtml(a.time)}</strong><small>${escapeHtml(a.label)}</small><label style="float:right"><input type="checkbox" ${a.enabled?'checked':''} onchange="toggleAlarm(${i},this.checked)"> On</label><button class="toolbtn" onclick="deleteAlarm(${i})">Delete</button>`;$('alarms').appendChild(el)})}
+function toggleAlarm(i,v){data.alarms[i].enabled=v;persist()}
+function deleteAlarm(i){data.alarms.splice(i,1);persist();renderAlarms()}
+function newNote(){$('noteTitle').value='';$('noteBody').value='';$('noteTitle').focus()}
+function saveNote(){const title=$('noteTitle').value.trim()||'Untitled',body=$('noteBody').value.trim();if(!body){alert('Write something in your note first.');return}data.notes.unshift({title,body});$('noteTitle').value='';$('noteBody').value='';persist();renderNotes()}
+function renderNotes(){$('noteList').innerHTML='';data.notes.forEach((n,i)=>{const b=document.createElement('button');b.className='note-card';b.innerHTML=`<strong>${escapeHtml(n.title)}</strong><div style="color:var(--muted);font-size:12px;margin-top:5px">${escapeHtml(n.body.slice(0,100))}</div><div style="text-align:right"><span style="color:var(--blue);font-size:12px">Edit</span> · <span style="color:#e05260;font-size:12px">Delete</span></div>`;b.onclick=e=>{if(e.target.textContent==='Delete'){data.notes.splice(i,1);persist();renderNotes()}else{$('noteTitle').value=n.title;$('noteBody').value=n.body}};$('noteList').appendChild(b)})}
+function saveSettings(){data.owner=$('ownerName').value.trim()||'Sabiru';data.wallpaper=$('wallpaper').value;document.querySelector('.widget p').textContent=data.owner+"'s iPhone · Fictional AU";const styles={blue:'linear-gradient(160deg,#cfe5fa,#e8dff6 50%,#d6e7df)',pink:'linear-gradient(160deg,#f7cfe1,#f6e8ef 50%,#eac5d6)',green:'linear-gradient(160deg,#d6eadb,#e9eedb 50%,#bdd5c7)',dark:'linear-gradient(160deg,#20283d,#43415c 50%,#171923)'};document.querySelector('.home').style.background=styles[data.wallpaper];document.querySelector('.lock').style.background=styles[data.wallpaper];persist();alert('Customization saved on this device.')}
+function nowTime(){return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hour12:false})}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function updateClock(){const d=new Date();$('statusTime').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hour12:false});$('lockClock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hour12:false});$('homeClock').textContent=$('lockClock').textContent;$('lockDate').textContent=d.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});$('homeDate').textContent=d.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}
+let startY=null;$('lock').addEventListener('touchstart',e=>startY=e.touches[0].clientY,{passive:true});$('lock').addEventListener('touchend',e=>{if(startY!==null&&startY-e.changedTouches[0].clientY>40)unlock();startY=null},{passive:true});$('lock').addEventListener('click',e=>{if(!e.target.closest('.notice'))unlock()});updateClock();setInterval(updateClock,30000);renderContacts();renderPhotos();renderPosts();renderEvents();renderAlarms();renderNotes();if(data.wallpaper) $('wallpaper').value=data.wallpaper;
+</script>
+</body>
+</html>
