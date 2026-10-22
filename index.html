@@ -5,6 +5,169 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7">
 <title>Sabiru PHONE</title>
+  
+/* Apple-inspired iOS app icons */
+.app-icon {
+  width: 57px;
+  height: 57px;
+  border-radius: 13px;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 0.5px 1px rgba(255,255,255,.55),
+    0 2px 5px rgba(0,0,0,.12);
+}
+
+/* Messages */
+.app-messages {
+  background: linear-gradient(155deg,#65e982,#20bd59) !important;
+}
+.app-messages svg {
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  box-sizing: border-box;
+}
+
+/* Photos */
+.app-photos {
+  background: linear-gradient(145deg,#fff,#ededf2) !important;
+  position: relative;
+}
+.app-photos span,
+.app-photos i,
+.app-photos b,
+.app-photos em {
+  position: absolute;
+  width: 17px;
+  height: 27px;
+  border-radius: 12px;
+  left: 20px;
+  top: 5px;
+  transform-origin: 50% 23px;
+}
+.app-photos span {
+  background: linear-gradient(#ff6259,#ffad45);
+  transform: rotate(0deg);
+}
+.app-photos i {
+  background: linear-gradient(#ffe34d,#55c96b);
+  transform: rotate(60deg);
+}
+.app-photos b {
+  background: linear-gradient(#5ce3a5,#4abaff);
+  transform: rotate(120deg);
+}
+.app-photos em {
+  background: linear-gradient(#6ba4ff,#b276f7);
+  transform: rotate(180deg);
+}
+.app-photos:after {
+  content: "";
+  position: absolute;
+  inset: 21px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* Music */
+.app-music {
+  color: #fff !important;
+  background: linear-gradient(145deg,#fa79a9,#a34bdf) !important;
+  font-size: 36px !important;
+  font-weight: 600;
+}
+
+/* Calendar */
+.app-calendar {
+  background: #fff !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0 !important;
+  color: #ff453a;
+}
+.app-calendar b {
+  font-size: 9px;
+  letter-spacing: .5px;
+}
+.app-calendar strong {
+  font-size: 26px;
+  line-height: 29px;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Clock */
+.app-clock {
+  background: linear-gradient(145deg,#fff,#e8e8ed) !important;
+  color: #24242a;
+  font-size: 42px !important;
+  font-weight: 200;
+}
+
+/* Notes */
+.app-notes {
+  background: linear-gradient(#fff 0 27%,#ffda45 27% 37%,#fff 37%) !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px !important;
+  padding: 0 11px;
+}
+.app-notes i {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: #d4d4d8;
+}
+
+/* Settings */
+.app-settings {
+  background: conic-gradient(
+    #f8f8fa,#c5c7ce,#f8f8fa,#aeb1bb,#f8f8fa
+  ) !important;
+  color: #646873;
+  font-size: 34px !important;
+}
+
+/* Phone */
+.app-phone {
+  background: linear-gradient(145deg,#69e88a,#19b95d) !important;
+  color: white !important;
+  font-size: 30px !important;
+}
+
+/* X */
+.app-x {
+  background: #000 !important;
+  color: #fff !important;
+  font-size: 32px !important;
+  font-weight: 500;
+}
+
+/* iOS-style translucent bars */
+.topbar {
+  background: rgba(250,250,252,.88);
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  border-bottom: 1px solid rgba(220,220,226,.5);
+}
+.search {
+  background: rgba(118,118,128,.12);
+  border-radius: 12px;
+}
+.contact {
+  background: rgba(255,255,255,.92);
+}
+.composer {
+  background: rgba(250,250,252,.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 <style>
 :root{--bg:#f5f5f7;--ink:#171719;--muted:#86868b;--blue:#007aff;--line:#e5e5ea;--card:#fff;--green:#d8f8b7;--glass:rgba(255,255,255,.58)}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% 0%,#e4e7f2 0,transparent 48%),#d9dce5;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;min-height:100dvh;-webkit-font-smoothing:antialiased}
